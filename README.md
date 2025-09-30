@@ -5,6 +5,11 @@ A **curses-based terminal tool** for exploring `.db` files directly from your pr
 Built for developers who want a lightweight way to inspect SQLite databases without leaving their editor.  
 Integrates seamlessly with **Neovim** via ToggleTerm + WhichKey, so you can open a floating DB viewer with a single keybind.
 
+Screenshots:
+
+![img1](https://i.imgur.com/nDRGIra.png)
+![img2](https://i.imgur.com/KQeSq7o.png)
+
 ---
 
 ##  ✨ Features
