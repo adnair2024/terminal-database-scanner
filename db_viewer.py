@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import curses
 from pathlib import Path
 import sys
@@ -51,4 +52,19 @@ def main(stdscr, directory):
         stdscr.getch()
         return
 
-    table_sele_
+    table_selector = TableSelector(stdscr, tables)
+    row_viewer = RowViewer(stdscr, conn)
+
+    while True:
+        selected_table = table_selector.navigate()
+        if selected_table is None:
+            break
+        row_viewer.display_table(selected_table)
+
+    conn.close()
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python db_viewer.py <directory>")
+        sys.exit(1)
+    curses.wrapper(main, sys.argv[1])
