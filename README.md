@@ -7,7 +7,10 @@ Integrates seamlessly with **Neovim** via ToggleTerm + WhichKey, so you can open
 
 Screenshots:
 
+Running with Neovim and ToggleTerm:
 ![img1](https://i.imgur.com/nDRGIra.png)
+
+Running as a Python script:
 ![img2](https://i.imgur.com/KQeSq7o.png)
 
 ---
