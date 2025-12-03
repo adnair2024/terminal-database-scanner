@@ -10,12 +10,19 @@ class RowViewer:
 
     def display_table(self, table_name):
         columns = get_table_columns(self.conn, table_name)
+
+        # Load all rows once so we know total count
         total_rows = get_table_rows(self.conn, table_name, limit=1000000)
         max_offset = max(0, len(total_rows) - self.rows_per_page)
 
         self.offset = 0
         while True:
-            rows = get_table_rows(self.conn, table_name, limit=self.rows_per_page, offset=self.offset)
+            rows = get_table_rows(
+                self.conn, table_name,
+                limit=self.rows_per_page,
+                offset=self.offset
+            )
+
             self.stdscr.clear()
             self.stdscr.addstr(0, 0, f"Table: {table_name}", curses.A_BOLD)
             self.stdscr.addstr(1, 0, " | ".join(columns), curses.A_UNDERLINE)
@@ -25,7 +32,16 @@ class RowViewer:
                 row_str = " | ".join([str(r) for r in row])
                 self.stdscr.addstr(y, 0, row_str[:curses.COLS-1])
 
-            self.stdscr.addstr(curses.LINES-1, 0, "Up/Down: scroll, b: back")
+            # === NEW: Row count displayed above the bottom menu ===
+            count_text = f"{len(total_rows)} rows of data"
+            self.stdscr.addstr(curses.LINES - 2, 0, count_text, curses.A_BOLD)
+            self.stdscr.clrtoeol()
+            # ======================================================
+
+            # Bottom navigation line
+            self.stdscr.addstr(curses.LINES - 1, 0, "Up/Down: scroll, b: back")
+            self.stdscr.clrtoeol()
+
             self.stdscr.refresh()
 
             key = self.stdscr.getch()

@@ -52,7 +52,7 @@ def main(stdscr, directory):
         stdscr.getch()
         return
 
-    table_selector = TableSelector(stdscr, tables)
+    table_selector = TableSelector(stdscr, tables, conn)
     row_viewer = RowViewer(stdscr, conn)
 
     while True:
